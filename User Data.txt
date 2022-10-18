@@ -1,0 +1,32 @@
+Copy files from S3 -> EC2 instance
+
+[ec2-user@ip-172-31-18-151 ~]$ aws s3 sync --region=us-east-2 s3://examplephoto1.src/ /home/ec2-user/ExamplePhoto/
+
+[ec2-user@ip-172-31-18-151 ~]$ aws s3 sync --region=us-east-2 s3://examplephoto1.src/ExamplePhotoResizeServer /home/ec2-user/ExamplePhotoResizeServer/
+
+
+<User data>
+
+#!/bin/bash
+cd /home/ec2-user
+aws s3 sync --region=us-east-2 s3://examplephoto1.src/ /home/ec2-user/ExamplePhotoWebServer/
+cd ExamplePhotoWebServer
+npm install
+forever start -w app.js
+sudo node app.js
+
+
+/home/ec2-user/ExamplePhotoWebServer/index.html 
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+<User data>
+
+#!/bin/bash
+cd /home/ec2-user
+aws s3 sync --region=us-west-1 s3://exampleticket1.src/Webserver/ /home/ec2-user/TicketWebServer/
+cd TicketWebServer
+npm install
+forever start -w app.js
+sudo node app.js
