@@ -17,18 +17,18 @@ var rdsEndpoint = {
   port: 3306
 };
 
-// MySQL DB 이름, 계정, 암호
+// MySQL DB Name, Account, Password
 var sequelize = new Sequelize('examplephoto1', 'admin', 'admin12345', {
   host: rdsEndpoint.host,
   port: rdsEndpoint.port
 });
 
-// MySQL DB 테이블 정의
+// MySQL DB Table Definition
 var Photo = sequelize.define('Photo', {
   filename: { type: Sequelize.STRING, allowNull: false, unique: true }
 });
 
-// MySQL DB 테이블 생성
+// MySQL DB Table Create
 sequelize.sync();
 
 app.use(multer({ dest: './uploads/' }));
@@ -40,7 +40,7 @@ app.get(['/', '/index.html'], function (req, res) {
   });
 });
 
-// 이미지 목록 출력
+// Image Items Print
 app.get('/images', function (req, res) {
   Photo.findAll().success(function (photoes) {
     var data = [];
@@ -53,7 +53,7 @@ app.get('/images', function (req, res) {
   });
 });
 
-// 웹 브라우저에서 이미지 받기
+// Receive image from web browser
 app.post('/images', function (req, res) {
   fs.readFile(req.files.images.path, function (err, data) {
     var filename = req.files.images.name;
