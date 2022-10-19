@@ -40,7 +40,7 @@ app.get(['/', '/index.html'], function (req, res) {
   });
 });
 
-// Image Items Print
+// Image Items Print Out
 app.get('/images', function (req, res) {
   Photo.findAll().success(function (photoes) {
     var data = [];
